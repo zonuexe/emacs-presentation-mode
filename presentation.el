@@ -4,9 +4,11 @@
 
 ;; Author: USAMI Kenta <tadsan@zonu.me>
 ;; Keywords: environment, faces, frames
+;; Created: 7 Apr 2018
 ;; Version: 0.0.1
 ;; Package-Requires: ((emacs "24.4") (cl-lib "0.5"))
 ;; URL: https://github.com/zonuexe/emacs-presentation-mode
+;; License: GPL-3.0-or-later
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -47,6 +49,22 @@
 ;;
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Parameter-Access.html
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Frame-Parameters.html
+;;
+;; ## Difference from other methods
+;;
+;; ### vs GlobalTextScaleMode (Emacs Wiki)
+;;
+;; Although the content of this article is simple, it does not provide a way to
+;; recover buffers.
+;; https://www.emacswiki.org/emacs/GlobalTextScaleMode
+;;
+;; ### Org Tree Slide / org-present
+;;
+;; These packages are simple presentations using org-mode.
+;; By using these with org-babel, it may be possible to perform live coding of
+;; arbitrary languages.
+;; https://github.com/takaxp/org-tree-slide
+;; https://github.com/rlister/org-present
 ;;
 
 ;;; Code:
