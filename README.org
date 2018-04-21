@@ -43,3 +43,6 @@ Although the content of this article is simple, it does not provide a way to rec
 *** vs [[https://github.com/takaxp/org-tree-slide][Org Tree Slide]] and [[https://github.com/rlister/org-present][org-present]]
 These packages are simple presentations using org-mode.
 By using these with org-babel, it may be possible to perform live coding of arbitrary languages.
+
+** Video
+[[./emacs-presentation.gif]]
