@@ -20,6 +20,23 @@ However, this mode is *NOT* intended for permanent font size change.
 - https://www.gnu.org/software/emacs/manual/html_node/elisp/Parameter-Access.html
 - https://www.gnu.org/software/emacs/manual/html_node/emacs/Frame-Parameters.html
 
+** Customization
+
+#+BEGIN_SRC
+(defun my-presentation-on ()
+  (helm-mode -1)
+  (ido-ubiquitous-mode 1)
+  (bind-key "M-x" #'smex))
+
+(defun my-presentation-off ()
+  (ido-ubiquitous-mode -1)
+  (helm-mode 1)
+  (bind-key "M-x" #'helm-smex))
+
+(add-hook 'presentation-on-hook #'my-presentation-on)
+(add-hook 'presentation-off-hook #'my-presentation-off)
+#+END_SRC
+
 ** Difference from other methods
 *** vs [[https://www.emacswiki.org/emacs/GlobalTextScaleMode][GlobalTextScaleMode]] (Emacs Wiki)
 Although the content of this article is simple, it does not provide a way to recover buffers.
