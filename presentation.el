@@ -5,7 +5,7 @@
 ;; Author: USAMI Kenta <tadsan@zonu.me>
 ;; Keywords: environment, faces, frames
 ;; Created: 7 Apr 2018
-;; Version: 0.0.1
+;; Version: 0.1.1
 ;; Package-Requires: ((emacs "24.4") (cl-lib "0.5"))
 ;; URL: https://github.com/zonuexe/emacs-presentation-mode
 ;; License: GPL-3.0-or-later
