@@ -78,6 +78,16 @@
   :prefix "presentation-"
   :group 'environment)
 
+(defcustom presentation-on-hook nil
+  "Functions to run whenever Presentation mode is turned on."
+  :type 'hook
+  :group 'presentation)
+
+(defcustom presentation-off-hook nil
+  "Functions to run whenever Presentation mode is turned off."
+  :type 'hook
+  :group 'presentation)
+
 (defcustom presentation-default-text-scale 3
   "Text scale for presentation."
   :type 'integer
@@ -154,7 +164,8 @@
         (add-hook 'window-configuration-change-hook  #'presentation--text-scale-apply)
         (let ((text-scale-mode-amount (or presentation--last-text-scale
                                           presentation-default-text-scale)))
-          (presentation--text-scale-set)))
+          (presentation--text-scale-set))
+        (run-hooks 'presentation-on-hook))
     (advice-remove 'text-scale-set #'presentation--text-scale-set)
     (advice-remove 'text-scale-increase #'presentation--text-scale-set)
     (remove-hook 'window-configuration-change-hook  #'presentation--text-scale-apply)
@@ -162,7 +173,8 @@
       (cl-loop for buf in (buffer-list)
                do (with-current-buffer buf
                     (unless (presentation-ignore-current-buffer)
-                      (text-scale-set 0)))))))
+                      (text-scale-set 0))))
+      (run-hooks 'presentation-off-hook))))
 
 (provide 'presentation)
 ;;; presentation.el ends here
