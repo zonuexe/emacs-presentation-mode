@@ -156,6 +156,7 @@
   :group 'presentation
   :global t
   :lighter presentation-mode-lighter
+  :keymap (make-sparse-keymap)
   :require 'presentation
   (if presentation-mode
       (save-selected-window
