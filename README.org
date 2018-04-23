@@ -25,11 +25,13 @@ However, this mode is *NOT* intended for permanent font size change.
 #+BEGIN_SRC
 (defun my-presentation-on ()
   (helm-mode -1)
+  ;; (global-linum-mode -1)
   (ido-ubiquitous-mode 1)
   (bind-key "M-x" #'smex))
 
 (defun my-presentation-off ()
   (ido-ubiquitous-mode -1)
+  ;; (global-linum-mode 1)
   (helm-mode 1)
   (bind-key "M-x" #'helm-smex))
 
