@@ -93,6 +93,14 @@
   :type 'integer
   :group 'presentation)
 
+(defcustom presentation-keep-last-text-scale t
+  "When non-NIL eproduce the size when using presention-mode last time.
+
+Be aware that size will not be inherited when you exit Emacs.
+Please set presentation-default-text-scale in initialization processing of your init.el."
+  :type 'boolean
+  :group 'presentation)
+
 (defcustom presentation-mode-lighter " Presentation"
   "String to display in mode line when Presentation Mode is enabled; nil for none."
   :type 'string
@@ -163,7 +171,7 @@
         (advice-add 'text-scale-set :after #'presentation--text-scale-set)
         (advice-add 'text-scale-increase :after #'presentation--text-scale-set)
         (add-hook 'window-configuration-change-hook  #'presentation--text-scale-apply)
-        (let ((text-scale-mode-amount (or presentation--last-text-scale
+        (let ((text-scale-mode-amount (or (when presentation-keep-last-text-scale presentation--last-text-scale)
                                           presentation-default-text-scale)))
           (presentation--text-scale-set))
         (run-hooks 'presentation-on-hook))
