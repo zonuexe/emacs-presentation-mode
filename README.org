@@ -25,20 +25,20 @@ You can switch modes for screen decoration by defining hook for on/off.
 #+BEGIN_SRC emacs-lisp
 (defun my-presentation-on ()
   (helm-mode -1)
-  ;; (global-linum-mode -1)
+  ;; (global-display-line-numbers-mode -1)
   (ido-ubiquitous-mode 1)
   (bind-key "M-x" #'smex))
 
 (defun my-presentation-off ()
   (ido-ubiquitous-mode -1)
-  ;; (global-linum-mode 1)
+  ;; (global-display-line-numbers-mode 1)
   (helm-mode 1)
   (bind-key "M-x" #'helm-smex))
 
 (add-hook 'presentation-on-hook #'my-presentation-on)
 (add-hook 'presentation-off-hook #'my-presentation-off)
 #+END_SRC
-Typically it is on/off of ~linum-mode~ /(although I do not use it)/.
+Typically it is on/off of ~display-line-numbers-mode~ (or ~linum-mode~) /(although I do not use it)/.
 I normally use [[https://emacs-helm.github.io/helm/][Helm]], but I think that [[https://www.gnu.org/software/emacs/manual/html_node/ido/index.html][IDO]] is more compact and easy to see during presentation.
 ** Difference from other methods
 *** vs [[https://www.emacswiki.org/emacs/GlobalTextScaleMode][GlobalTextScaleMode]] (Emacs Wiki)
