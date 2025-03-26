@@ -6,7 +6,7 @@
 ;; Keywords: environment, faces, frames
 ;; Created: 7 Apr 2018
 ;; Version: 0.1.1
-;; Package-Requires: ((emacs "24.4") (cl-lib "0.5"))
+;; Package-Requires: ((emacs "24.4") (compat "30"))
 ;; URL: https://github.com/zonuexe/emacs-presentation-mode
 ;; License: GPL-3.0-or-later
 
@@ -71,6 +71,8 @@
 (require 'cl-lib)
 (require 'nadvice)
 (require 'face-remap)
+(eval-when-compile
+  (require 'compat-29))
 
 ;; Customize variables:
 (defgroup presentation nil
@@ -155,6 +157,8 @@ your init.el."
      t t)))
 
 ;; Mode:
+(defvar-keymap presentation-mode-map
+  :doc "Keymap for `presentation-mode'.")
 
 ;;;###autoload
 (define-minor-mode presentation-mode
@@ -162,7 +166,7 @@ your init.el."
   :group 'presentation
   :global t
   :lighter presentation-mode-lighter
-  :keymap (make-sparse-keymap)
+  :keymap presentation-mode-map
   :require 'presentation
   (if presentation-mode
       (save-selected-window
