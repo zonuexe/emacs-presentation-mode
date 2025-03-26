@@ -76,24 +76,19 @@
 
 ;; Customize variables:
 (defgroup presentation nil
-  "Display large charactor for presentation."
-  :prefix "presentation-"
-  :group 'environment)
+  "Display large charactor for presentation.")
 
 (defcustom presentation-on-hook nil
   "Functions to run whenever Presentation mode is turned on."
-  :type 'hook
-  :group 'presentation)
+  :type 'hook)
 
 (defcustom presentation-off-hook nil
   "Functions to run whenever Presentation mode is turned off."
-  :type 'hook
-  :group 'presentation)
+  :type 'hook)
 
 (defcustom presentation-default-text-scale 3
   "Text scale for presentation."
-  :type 'integer
-  :group 'presentation)
+  :type 'integer)
 
 (defcustom presentation-keep-last-text-scale t
   "If non-NIL, reproduce size the last time presentation mode was used.
@@ -101,23 +96,19 @@
 Note that the size is not inherited when you quit Emacs.
 Please set `presentation-default-text-scale' in the initialization processing of
 your init.el."
-  :type 'boolean
-  :group 'presentation)
+  :type 'boolean)
 
 (defcustom presentation-mode-lighter " Presentation"
   "String to display in mode line when Presentation Mode is enabled; nil for none."
-  :type 'string
-  :group 'presentation)
+  :type 'string)
 
 (defcustom presentation-mode-ignore-major-modes '()
   "List of major modes unaffected by presentation mode."
-  :type '(repeat (choice function symbol))
-  :group 'presentation)
+  :type '(repeat (choice function symbol)))
 
 (defcustom presentation-mode-ignore-minor-modes '(org-present-mode org-tree-slide-mode)
   "List of minor modes unaffected by presentation mode."
-  :type '(repeat (choice variable symbol))
-  :group 'presentation)
+  :type '(repeat (choice variable symbol)))
 
 ;; Buffer local variables:
 (defvar-local presentation-disable nil)
