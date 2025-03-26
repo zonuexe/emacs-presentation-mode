@@ -110,6 +110,10 @@ your init.el."
   "List of minor modes unaffected by presentation mode."
   :type '(repeat (choice variable symbol)))
 
+(defcustom presentation-mode-text-scale-remap-header-line t
+  "If non-nil, text scaling may change font size of header lines too."
+  :type 'boolean)
+
 ;; Buffer local variables:
 (defvar-local presentation-disable nil)
 
@@ -140,6 +144,8 @@ your init.el."
     (walk-windows
      (lambda (win)
        (with-selected-window win
+         (when (eval-when-compile (boundp 'text-scale-remap-header-line))
+           (setq text-scale-remap-header-line presentation-mode-text-scale-remap-header-line))
          (unless (presentation-ignore-current-buffer)
            (setq text-scale-mode-amount level)
            (text-scale-mode (if (zerop text-scale-mode-amount) -1 1)))))
