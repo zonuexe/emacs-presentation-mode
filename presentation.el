@@ -1,6 +1,6 @@
 ;;; presentation.el --- Display large character for presentation  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2018  USAMI Kenta
+;; Copyright (C) 2025  USAMI Kenta
 
 ;; Author: USAMI Kenta <tadsan@zonu.me>
 ;; Keywords: environment, faces, frames
@@ -94,10 +94,11 @@
   :group 'presentation)
 
 (defcustom presentation-keep-last-text-scale t
-  "When non-NIL eproduce the size when using presention-mode last time.
+  "If non-NIL, reproduce size the last time presentation mode was used.
 
-Be aware that size will not be inherited when you exit Emacs.
-Please set presentation-default-text-scale in initialization processing of your init.el."
+Note that the size is not inherited when you quit Emacs.
+Please set `presentation-default-text-scale' in the initialization processing of
+your init.el."
   :type 'boolean
   :group 'presentation)
 
@@ -106,14 +107,12 @@ Please set presentation-default-text-scale in initialization processing of your 
   :type 'string
   :group 'presentation)
 
-(defcustom presentation-mode-ignore-major-modes
-  '()
+(defcustom presentation-mode-ignore-major-modes '()
   "List of major modes unaffected by presentation mode."
   :type '(repeat (choice function symbol))
   :group 'presentation)
 
-(defcustom presentation-mode-ignore-minor-modes
-  '(org-present-mode org-tree-slide-mode)
+(defcustom presentation-mode-ignore-minor-modes '(org-present-mode org-tree-slide-mode)
   "List of minor modes unaffected by presentation mode."
   :type '(repeat (choice variable symbol))
   :group 'presentation)
@@ -143,10 +142,9 @@ Please set presentation-default-text-scale in initialization processing of your 
                always (and (boundp m) (symbol-value m)))))
 
 (defun presentation-windows-text-scale-set (level)
-  "Set `LEVEL' for each buffer."
+  "Set LEVEL for each buffer."
   (setq text-scale-mode-amount level)
   (text-scale-mode (if (zerop text-scale-mode-amount) -1 1))
-
   (save-selected-window
     (walk-windows
      (lambda (win)
