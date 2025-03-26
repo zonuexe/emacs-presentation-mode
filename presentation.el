@@ -136,8 +136,6 @@ your init.el."
 
 (defun presentation-windows-text-scale-set (level)
   "Set LEVEL for each buffer."
-  (setq text-scale-mode-amount level)
-  (text-scale-mode (if (zerop text-scale-mode-amount) -1 1))
   (save-selected-window
     (walk-windows
      (lambda (win)
