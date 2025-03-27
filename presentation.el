@@ -72,7 +72,7 @@
 (require 'nadvice)
 (require 'face-remap)
 (eval-when-compile
-  (require 'compat-29))
+  (require 'compat-29 nil t))
 
 ;; Customize variables:
 (defgroup presentation nil
