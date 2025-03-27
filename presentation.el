@@ -76,7 +76,8 @@
 
 ;; Customize variables:
 (defgroup presentation nil
-  "Display large charactor for presentation.")
+  "Display large charactor for presentation."
+  :group 'covinience)
 
 (defcustom presentation-on-hook nil
   "Functions to run whenever Presentation mode is turned on."
