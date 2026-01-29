@@ -133,7 +133,7 @@ your init.el."
   (presentation-windows-text-scale-set presentation-last-text-scale))
 
 (defun presentation-ignore-current-buffer ()
-  "Return T if current-burrer should be ignore for presentation."
+  "Return non-NIL if current-burrer should be ignore for presentation."
   (or presentation-disable
       (memq major-mode presentation-mode-ignore-major-modes)
       (cl-loop for m in presentation-mode-ignore-minor-modes
