@@ -1,6 +1,11 @@
 * Emacs Presentation Mode
-*Presentation mode* is a global minor mode to zoom characters.  This mode applies the effect of ~text-scale-mode~ to all buffers.
-This feature help you to present Emacs edit / operation to the audience in front of the screen.
+
+Present your Emacs sessions with readable text across every buffer, while keeping a quick toggle and hooks for tailoring the UI during demos.
+
+** What this package provides
+- A global minor mode (~presentation-mode~) that applies ~text-scale-mode~ across all buffers/windows for easier screen-sharing or live demos.
+- Explicit on/off toggle with lighter, plus hooks (~presentation-on-hook~, ~presentation-off-hook~) to adjust your UI during presentations (e.g., hide line numbers, switch completion UI).
+- Optional delegation to Emacs 29’s ~global-text-scale-adjust~ for synchronized scaling while keeping the above toggle and hooks.
 
 [[./emacs-presentation.jpg]]
 
@@ -19,27 +24,40 @@ It is well known that how to change the font size of Emacs in GUI is difficult.
 However, this mode is *NOT* intended for permanent font size change.
 - https://www.gnu.org/software/emacs/manual/html_node/elisp/Parameter-Access.html
 - https://www.gnu.org/software/emacs/manual/html_node/emacs/Frame-Parameters.html
+*** About ~global-text-scale-adjust~ (Emacs 29+, non-persistent)
+- Emacs 29 ships ~global-text-scale-adjust~; it synchronizes scaling across windows but does not persist font size between sessions.
+- Try it first if you only need quick, global scaling. Continue here when you need explicit on/off control or hooks for presentation-specific tweaks.
 
 ** Customization
 You can switch modes for screen decoration by defining hook for on/off.
 #+BEGIN_SRC emacs-lisp
 (defun my-presentation-on ()
-  (helm-mode -1)
-  ;; (global-display-line-numbers-mode -1)
-  (ido-ubiquitous-mode 1)
-  (bind-key "M-x" #'smex))
+  (vertico-mode -1)
+  (global-display-line-numbers-mode -1)
+  (fido-mode 1)
+  (mapc #'disable-theme custom-enabled-themes)
+  (modus-themes-select 'modus-vivendi))
 
 (defun my-presentation-off ()
-  (ido-ubiquitous-mode -1)
-  ;; (global-display-line-numbers-mode 1)
-  (helm-mode 1)
-  (bind-key "M-x" #'helm-smex))
+  (fido-mode -1)
+  (global-display-line-numbers-mode 1)
+  (vertico-mode 1)
+  (mapc #'disable-theme custom-enabled-themes)
+  (modus-themes-select 'modus-operandi))
 
 (add-hook 'presentation-on-hook #'my-presentation-on)
 (add-hook 'presentation-off-hook #'my-presentation-off)
 #+END_SRC
 Typically it is on/off of ~display-line-numbers-mode~ (or ~linum-mode~) /(although I do not use it)/.
 I normally use [[https://emacs-helm.github.io/helm/][Helm]], but I think that [[https://www.gnu.org/software/emacs/manual/html_node/ido/index.html][IDO]] is more compact and easy to see during presentation.
+
+*** Global scaling (Emacs 29+)
+- Emacs 29 added ~global-text-scale-adjust~ in ~face-remap.el~. When available, ~presentation-mode~ delegates scaling to it so all frames/windows stay in sync.
+- Control delegation with ~presentation-use-global-text-scale-adjust~:
+  - ~auto~ (default): use global adjust when available and no ignored buffers need protection.
+  - ~always~: force global adjust when available (no fallback for ignored buffers).
+  - ~never~: always use the legacy buffer-local ~text-scale-mode~ behavior.
+- If any buffer should be excluded (e.g., matches ~presentation-mode-ignore-minor-modes~ or has ~presentation-disable~ set), delegation is disabled in ~auto~ mode and buffer-local scaling is used to keep those buffers unchanged.
 ** Difference from other methods
 *** vs [[https://www.emacswiki.org/emacs/GlobalTextScaleMode][GlobalTextScaleMode]] (Emacs Wiki)
 Although the content of this article is simple, it does not provide a way to recover buffers.
@@ -52,6 +70,12 @@ This package is probably not compatible with ~presentation.el~, but please use t
 *** vs [[https://github.com/takaxp/org-tree-slide][Org Tree Slide]] and [[https://github.com/rlister/org-present][org-present]]
 These packages are simple presentations using org-mode.
 By using these with org-babel, it may be possible to perform live coding of arbitrary languages.
+*** vs global-text-scale-adjust (Emacs 29+)
+- If you only want to synchronize text scale across all windows, a simple remap can suffice:
+  #+BEGIN_SRC emacs-lisp
+  (define-key map [remap text-scale-adjust] #'global-text-scale-adjust)
+  #+END_SRC
+- ~presentation-mode~ adds value when you need explicit on/off toggling via a minor mode and custom hooks (~presentation-on-hook~, ~presentation-off-hook~) to adjust UI (e.g., hide line numbers, switch completion UI) during presentations.
 
 ** Video
 [[./emacs-presentation.gif]]
