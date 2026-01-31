@@ -1,0 +1,22 @@
+#+TITLE: Changelog
+#+AUTHOR: emacs-presentation-mode maintainers
+
+All notable changes to this project will be documented in this file.
+The format is based on [[https://keepachangelog.com/en/1.1.0/][Keep a Changelog]], and this project aims to adhere to [[https://semver.org/spec/v2.0.0.html][Semantic Versioning]].
+
+* Unreleased
+** Added
+- Add ~presentation-mode-text-scale-remap-header-line~ custom variable to let header lines follow presentation scaling.
+- Add ~presentation-mode-map~ as the dedicated keymap for the minor mode.
+- Add ~presentation-use-global-text-scale-adjust~ custom variable to select scaling engine:
+  - ~auto~: use ~global-text-scale-adjust~ when available; if a buffer matches ~presentation-mode-ignore-minor-modes~, fall back to the previous implementation.
+  - ~always~: always use ~global-text-scale-adjust~; ~presentation-mode-ignore-minor-modes~ is not honored.
+  - ~never~: always use the previous buffer-local implementation (child frames/posframe popups may display less smoothly).
+** Changed
+- Text scaling now uses Emacs 29+ ~global-text-scale-adjust~ for improved stability.
+  - The previous buffer-local approach could flicker and mis-handle child frames (aka posframe popups); the new default avoids those issues.
+- ~presentation-off-hook~ now runs on the next command cycle (via ~post-command-hook~) after the mode is disabled to prevent accidental re-entry/recursive loops from teardown side effects (e.g., theme or scaling changes).
+- Mode teardown resets text scaling with ~presentation--reset-all-scales~, preferring ~global-text-scale-adjust~ when allowed and falling back to per-buffer resets only when necessary.
+** Fixed
+- Prevented excessive recursion when ignored buffers or theme changes re-enter scaling logic.
+- Ensured ~presentation-mode-ignore-minor-modes~ is respected (any matching minor mode now skips scaling).
