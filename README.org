@@ -1,6 +1,12 @@
 * Emacs Presentation Mode
 Present your Emacs sessions with readable text across all buffers, featuring a quick toggle and hooks for tailoring your UI during live demos.
 
+#+BEGIN_QUOTE
+[!TIP]
+** Note on the February 2026 Update
+The scaling engine was significantly updated on 2026-02-01.  See [[https://github.com/zonuexe/emacs-presentation-mode/pull/4][PR #4]] for details and rollback instructions.  Your feedback is very welcome!
+#+END_QUOTE
+
 ** Key Features
 - *Global Scaling*: A global minor mode (~presentation-mode~) that scales text across all windows for crystal-clear screen sharing.
 - *UI Automation*: Use hooks (~presentation-on-hook~ / ~off-hook~) to automatically adjust your environment (e.g., hide line numbers, switch themes).
